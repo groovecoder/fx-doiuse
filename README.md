@@ -12,9 +12,11 @@ tl;dr version ...
 2. Set these [recommended
    about:config](https://developer.mozilla.org/en-US/Add-ons/Setting_up_extension_development_environment#Recommended_development_preferences) values in the profile:
 
+
     devtools.chrome.enabled = true
     devtools.debugger.remote-enabled = true
     xpinstall.signatures.required = false
+
 
 3. Install [Extension
    Auto-Installer](https://addons.mozilla.org/en-US/firefox/addon/autoinstaller/) Add-on into the new profile
@@ -25,9 +27,11 @@ tl;dr version ...
 
 5. Clone this repo:
 
+
     git clone git://github.com/groovecoder/fx-doiuse.git
 
-6. Run `jpm watchpost` to automatically watch and update add-on code in Firefox
+6. Run `jpm watchpost` to automatically watch and update add-on code in Firefox:
+
 
     cd fx-doiuse
     jpm watchpost --post-url http://localhost:8888/
