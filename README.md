@@ -29,3 +29,13 @@ tl;dr version ...
 
         cd fx-doiuse
         jpm watchpost --post-url http://localhost:8888/
+
+## Usage
+For now, this doesn't do much, so ...
+
+1. Go to
+   [https://developer.allizom.org/](https://developer.allizom.org/)
+
+You will see a red outline around the document. Yay!
+
+See [Issues](https://github.com/groovecoder/fx-doiuse/issues) for the planned features.
