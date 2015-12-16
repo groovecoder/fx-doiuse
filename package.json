@@ -1,0 +1,18 @@
+{
+  "title": "fx-doiuse",
+  "name": "fx-doiuse",
+  "version": "0.0.1",
+  "description": "Runs doiuse against your dev sites to catch incompatible CSS.",
+  "main": "index.js",
+  "author": "Luke Crouch",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "license": "MIT",
+  "keywords": [
+    "jetpack"
+  ],
+  "devDependencies": {
+    "jpm": "^1.0.4"
+  }
+}
