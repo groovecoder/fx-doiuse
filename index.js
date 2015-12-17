@@ -14,7 +14,7 @@ function init(tab) {
   
   if (DEV_DOMAINS.indexOf(tabURL.hostname) > -1) {
     tab.attach({
-      contentScript: "if (document.body) document.body.style.border = '5px solid red';"
+      contentScriptFile: "./doiuse-script.js"
     });
   }
 }
