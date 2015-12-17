@@ -26,17 +26,28 @@ function init(tab) {
       var doiuse = spawn("/usr/local/bin/doiuse");
 
       // Attach stdout data handler to doiuse process
-      doiuse.stdout.on('data', onData);
-      doiuse.on('close', onClose);
+      doiuse.stdout.on('data', onStdoutData);
+      doiuse.stderr.on('data', onStderrData);
+      doiuse.on('exit', onExit);
+      doiuse.on('error', onError);
 
-      function onData (data) {
+      function onStdoutData (data) {
         doiuseOutput += data;
       }
 
-      function onClose (code, signal) {
-        doiuse.stdout.off('data', onData);
-        doiuse.off('close', onClose);
-        console.log(doiuseOutput);
+      function onStderrData (data) {
+        doiuseOutput += data;
+      }
+
+      function onExit (code, signal) {
+        doiuse.stdout.off('data', onStdoutData);
+        doiuse.stderr.off('data', onStderrData);
+        doiuse.off('exit', onExit);
+        tabWorker.port.emit("doiuseOutput", doiuseOutput);
+      }
+
+      function onError (error) {
+        console.log(error);
       }
 
       emit(doiuse.stdin, 'data', styleSheetContent);

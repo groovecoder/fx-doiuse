@@ -31,11 +31,22 @@ tl;dr version ...
         jpm watchpost --post-url http://localhost:8888/
 
 ## Usage
-For now, this doesn't do much, so ...
+For now, this is a clunky prototype
 
-1. Go to
+1. Install `doiuse` globally so the binary is available to the add-on:
+
+
+        npm install -g doiuse
+
+2. Sym-link `node` into `/usr/bin/` so `doiuse` can find `node`
+
+
+        sudo ln -s /usr/local/bin/node /usr/bin/node
+
+3. Go to
    [https://developer.allizom.org/](https://developer.allizom.org/)
 
-You will see a red outline around the document. Yay!
+You will see a green outline around the document. Yay! You will also see some
+alerts with *real* output from running `doiuse` on *fake* styles.
 
 See [Issues](https://github.com/groovecoder/fx-doiuse/issues) for the planned features.
