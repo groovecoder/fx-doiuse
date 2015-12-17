@@ -1,8 +1,9 @@
-var child_process = require("sdk/system/child_process");
+const { emit } = require('sdk/event/core');
+const { spawn } = require('sdk/system/child_process');
 var tabs = require("sdk/tabs");
 var url = require("sdk/url");
 
-const DEV_DOMAINS = [
+var DEV_DOMAINS = [
   'developer-local.allizom.org',
   'developer.allizom.org'
 ];
@@ -20,18 +21,27 @@ function init(tab) {
 
     // Receive styleSheetContent messages from content script
     tabWorker.port.on("styleSheetContent", function(styleSheetContent) {
+      var doiuseOutput = '';
       // Spawn the doiuse process
-      var doiuse = child_process.spawn("doiuse");
+      var doiuse = spawn("/usr/local/bin/doiuse");
 
       // Attach stdout data handler to doiuse process
-      doiuse.stdout.on('data', function(data) {
-        // TODO: show the doiuse output somehow - maybe throw it back to the content script?
-        alert(data);
-      });
+      doiuse.stdout.on('data', onData);
+      doiuse.on('close', onClose);
 
-      // Write the stylesheet content to the doiuse process
-      doiuse.stdin.setEncoding('utf-8');
-      doiuse.stdin.write(styleSheetContent);
+      function onData (data) {
+        doiuseOutput += data;
+      }
+
+      function onClose (code, signal) {
+        doiuse.stdout.off('data', onData);
+        doiuse.off('close', onClose);
+        console.log(doiuseOutput);
+      }
+
+      emit(doiuse.stdin, 'data', styleSheetContent);
+      emit(doiuse.stdin, 'end');
+
     });
   }
 }
