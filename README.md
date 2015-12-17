@@ -46,7 +46,7 @@ For now, this is a clunky prototype
 3. Go to
    [https://developer.allizom.org/](https://developer.allizom.org/)
 
-You will see a green outline around the document. Yay! You will also see some
-alerts with *real* output from running `doiuse` on *fake* styles.
+You will get an alert for each stylesheet on the page, showing all of the CSS
+incompatibilities as reported by `doiuse`.
 
 See [Issues](https://github.com/groovecoder/fx-doiuse/issues) for the planned features.
