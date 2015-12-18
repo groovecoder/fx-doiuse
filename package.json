@@ -6,7 +6,7 @@
   "main": "index.js",
   "author": "Luke Crouch",
   "engines": {
-    "firefox": ">=38.0a1"
+    "firefox": ">=38.0"
   },
   "license": "MIT",
   "keywords": [
