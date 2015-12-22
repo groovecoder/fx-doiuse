@@ -2,7 +2,7 @@
 Lint CSS for browser support against caniuse database; using doiuse library
 
 ![fx-doiuse
-demo](https://raw.github.com/groovecoder/fx-doiuse/dev-panel-for-domains/demo.gif)
+demo](https://raw.github.com/groovecoder/fx-doiuse/master/demo.gif)
 
 ## Usage
 For now, this is a clunky prototype
