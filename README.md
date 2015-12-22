@@ -1,6 +1,9 @@
 #doiuse
 Lint CSS for browser support against caniuse database; using doiuse library
 
+![fx-doiuse
+demo](https://raw.github.com/groovecoder/fx-doiuse/dev-panel-for-domains/demo.gif)
+
 ## Dev Setup
 Add-on coding can be a bit tricky. There are great docs on MDN for Add-ons and
 the Add-on SDK. But they may be more than you need to work on this. So here's a
