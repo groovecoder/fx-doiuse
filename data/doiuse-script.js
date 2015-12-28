@@ -7,6 +7,33 @@ self.port.on("doiuseOutput", function (doiuseOutput) {
 });
 
 for (var i=0; i < document.styleSheets.length; i++) {
-  // Send the stylesheet content to add-on script to call doiuse process
-  self.port.emit("styleSheet", document.styleSheets[i].href);
+  var styleSheetHref = document.styleSheets[i].href
+  styleSheetXHR = new XMLHttpRequest();
+
+  styleSheetXHR.onreadystatechange = function () {
+    if (styleSheetXHR.readyState === XMLHttpRequest.DONE) {
+      if (styleSheetXHR.status === 200) {
+        var styleSheetContent = styleSheetXHR.responseText;
+        var doiuseURL = 'https://www.doiuse.com/';
+        var doiuseXHR = new XMLHttpRequest();
+        doiuseXHR.open('POST', doiuseURL);
+
+        doiuseXHR.onreadystatechange = function () {
+          if (doiuseXHR.readyState === XMLHttpRequest.DONE) {
+            if (doiuseXHR.status === 200) {
+              var doiuseOutput = doiuseXHR.responseText;
+              console.log(doiuseOutput);
+            }
+          }
+        };
+
+        if (styleSheetContent) {
+          doiuseXHR.send('css=' + styleSheetContent);
+        }
+      }
+    }
+  };
+
+  styleSheetXHR.open('GET', styleSheetHref);
+  styleSheetXHR.send();
 }
