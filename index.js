@@ -31,7 +31,7 @@ const DoiusePanel = Class({
   url: self.data.url('doiuse_panel.html'),
   onReady: function() {
     // Send dev domains and port to panel
-    this.postMessage(ss.storage.devDomains, [panelSide]);
+    this.postMessage(ss.storage.devDomains || '', [panelSide]);
   }
 });
 
@@ -41,8 +41,11 @@ const DoiuseTool = new Tool({
 
 function init(tab) {
   var tabURL = url.URL(tab.url);
+  var devDomains = [];
 
-  var devDomains = ss.storage.devDomains.split(',').map(function(strValue){return strValue.trim();});
+  if (ss.storage.hasOwnProperty('devDomains')) {
+    devDomains = ss.storage.devDomains.split(',').map(function(strValue){return strValue.trim();});
+  }
   if (devDomains.indexOf(tabURL.hostname) > -1) {
     var tabWorker = tab.attach({
       contentScriptFile: "./doiuse-script.js"
