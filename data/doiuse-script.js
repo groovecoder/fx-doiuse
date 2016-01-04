@@ -15,7 +15,7 @@ for (var i=0; i < document.styleSheets.length; i++) {
       if (styleSheetXHR.readyState === XMLHttpRequest.DONE) {
         if (styleSheetXHR.status === 200) {
           var styleSheetContent = styleSheetXHR.responseText;
-          var doiuseURL = 'http://127.0.0.1:3000';
+          var doiuseURL = 'https://moz-doiuse.herokuapp.com';
           var doiuseXHR = new XMLHttpRequest();
           doiuseXHR.open('POST', doiuseURL);
 
@@ -23,7 +23,7 @@ for (var i=0; i < document.styleSheets.length; i++) {
             if (doiuseXHR.readyState === XMLHttpRequest.DONE) {
               if (doiuseXHR.status === 200) {
                 var doiuseOutput = doiuseXHR.responseText;
-                console.log(doiuseOutput);
+                alert(doiuseOutput);
               }
             }
           };
