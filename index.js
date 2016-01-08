@@ -44,7 +44,7 @@ function init(tab) {
     devDomains = devDomains.split(',').map(function(strValue){return strValue.trim();});
     if (devDomains.indexOf(tabURL.hostname) > -1) {
       var tabWorker = tab.attach({
-        contentScriptFile: "./doiuse-script.js"
+        contentScriptFile: "./doiuse-bundle.js"
       });
     }
   }
