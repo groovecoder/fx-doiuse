@@ -53,6 +53,25 @@ tl;dr version ...
         cd fx-doiuse
         jpm run [-p fx-doiuse]
 
+We use `browserify` to bundle `postcss` and `doiuse` into `fx-doiuse`. To
+browserify the `doiuse-script.js` into `data/doiuse-bundle.js` ...
+
+1. Install `browserify`, `postcss`, and `brfs`:
+
+        npm install browserify postcss brfs
+
+2. Clone a special branch of doiuse into the `node_modules`:
+
+        cd node_modules
+        git clone https://github.com/groovecoder/doiuse.git
+        cd doiuse
+        git checkout require-fulldata
+
+3. Run `browserify`:
+
+        ./node_modules/.bin/browserify -t brfs -r doiuse -r postcss data/doiuse-script.js -o data/doiuse-bundle.js
+
+
 ## What's next?
 
 See [Issues](https://github.com/groovecoder/fx-doiuse/issues) for the planned features.
