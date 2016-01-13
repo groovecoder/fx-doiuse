@@ -8,6 +8,9 @@ const ss = require('sdk/simple-storage');
 const tabs = require("sdk/tabs");
 const url = require("sdk/url");
 
+// DevTools
+const { Cu } = require("chrome");
+const { gDevTools } = Cu.import("resource:///modules/devtools/gDevTools.jsm", {});
 
 // Create a message channel port for communicating with dev panel
 const channel = new MessageChannel();
@@ -36,18 +39,19 @@ const DoiuseTool = new Tool({
   panels: { doiuse: DoiusePanel }
 });
 
-function init(tab) {
-  var tabURL = url.URL(tab.url);
-  var devDomains = ss.storage.devDomains || null;
+gDevTools.on("toolbox-ready", onToolboxReady);
 
-  if (devDomains) {
-    devDomains = devDomains.split(',').map(function(strValue){return strValue.trim();});
-    if (devDomains.indexOf(tabURL.hostname) > -1) {
-      var tabWorker = tab.attach({
-        contentScriptFile: "./doiuse-bundle.js"
+/**
+ * Toolbox Ready
+ */
+function onToolboxReady(eventId, toolbox) {
+  toolbox.getPanelWhenReady("styleeditor").then(panel => {
+    for (let editor of panel.UI.editors) {
+      editor.on("source-editor-load", () => {
+        editor.getSourceEditor().then( () => {
+          alert("editor.sourceEditor.getText(): " + editor.sourceEditor.getText());
+        })
       });
     }
-  }
+  });
 }
-
-tabs.on("ready", init);
