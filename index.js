@@ -47,11 +47,9 @@ gDevTools.on("toolbox-ready", onToolboxReady);
 function onToolboxReady(eventId, toolbox) {
   toolbox.getPanelWhenReady("styleeditor").then(panel => {
     for (let editor of panel.UI.editors) {
-      editor.on("source-editor-load", () => {
-        editor.getSourceEditor().then( () => {
-          alert("editor.sourceEditor.getText(): " + editor.sourceEditor.getText());
-        })
-      });
+      editor.getSourceEditor().then( sourceEditor => {
+        console.log("sourceEditor.getText(): " + sourceEditor.getText());
+      })
     }
   });
 }
