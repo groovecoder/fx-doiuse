@@ -2,32 +2,22 @@
 Lint CSS for browser support against caniuse database; using doiuse library
 
 ![fx-doiuse
-demo](https://raw.github.com/groovecoder/fx-doiuse/master/demo.gif)
+demo](https://raw.github.com/groovecoder/fx-doiuse/doiuse.com/demo.gif)
 
 ## Usage
 For now, this is a clunky prototype
 
-1. Install `doiuse` globally so the binary is available to the add-on:
+1. Install the
+   [`.xpi`](https://raw.github.com/groovecoder/fx-doiuse/doiuse.com/@fx-doiuse-0.0.1.xpi) from your [`about:addons`](about:addons)
 
-        npm install -g doiuse
+2. Open the Developer Tools "doiuse" panel
 
-2. Sym-link `node` into `/usr/bin/` so `doiuse` can find `node`
+3. Set your Development Domains
 
-        sudo ln -s /usr/local/bin/node /usr/bin/node
-
-3. `jpm run` to run Firefox with the add-on:
-
-        cd fx-doiuse
-        jpm run [-p fx-doiuse]
-
-4. Open the Developer Tools "doiuse" panel
-
-5. Set your Development Domains
-
-6. Go to one of your development domains
+4. Go to one of your development domains
 
 You will get an alert for each stylesheet on the page, showing all of the CSS
-incompatibilities as reported by `doiuse`.
+incompatibilities as reported by [moz-doiuse](https://moz-doiuse.herokuapp.com).
 
 ## Dev Setup
 Add-on coding can be a bit tricky. There are great docs on MDN for Add-ons and
