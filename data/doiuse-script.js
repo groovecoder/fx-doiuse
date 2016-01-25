@@ -37,8 +37,7 @@ function $http(url){
 }
 
 function postToDoiuse (css) {
-  var styleSheetContent = css;
-  $http(DOIUSE_URL).post('{"css":' + JSON.stringify(styleSheetContent) + '}').then(function (response) {
+  $http(DOIUSE_URL).post('{"css":' + JSON.stringify(css) + '}').then(function (response) {
     alert(response);
   });
 }
