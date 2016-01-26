@@ -1,42 +1,50 @@
+const DOIUSE_URL = 'https://moz-doiuse.herokuapp.com';
+
 // Style border green to verify content script is running
 if (document.body) document.body.style.border = '5px solid green';
 
-self.port.on("doiuseOutput", function (doiuseOutput) {
-  // TODO: make the real UI for showing doiuseOutput on the page
-  alert(doiuseOutput);
-});
+// See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#Example_using_new_XMLHttpRequest%28%29
+function $http(url){
+  var core = {
+    ajax: function (method, url, data) {
+      var promise = new Promise(function (resolve, reject) {
+        xhr = new XMLHttpRequest();
+        xhr.open(method, url);
+        xhr.send(data);
+        xhr.onload = function () {
+          if (this.status >= 200 && this.status < 300) {
+            resolve(this.response);
+          } else {
+            reject(this.statusText);
+          }
+        };
+        xhr.onerror = function () {
+          reject(this.statusText);
+        };
+      });
+      return promise;
+    }
+  };
+
+  return {
+    'get': function() {
+      return core.ajax('GET', url);
+    },
+    'post': function(data) {
+      return core.ajax('POST', url, data);
+    }
+  };
+}
+
+function postToDoiuse (css) {
+  $http(DOIUSE_URL).post('{"css":' + JSON.stringify(css) + '}').then(function (response) {
+    alert(response);
+  });
+}
 
 for (var i=0; i < document.styleSheets.length; i++) {
   var styleSheet = document.styleSheets[i];
   if (styleSheet.href) {
-    styleSheetXHR = new XMLHttpRequest();
-
-    styleSheetXHR.onreadystatechange = function () {
-      if (styleSheetXHR.readyState === XMLHttpRequest.DONE) {
-        if (styleSheetXHR.status === 200) {
-          var styleSheetContent = styleSheetXHR.responseText;
-          var doiuseURL = 'https://moz-doiuse.herokuapp.com';
-          var doiuseXHR = new XMLHttpRequest();
-          doiuseXHR.open('POST', doiuseURL);
-
-          doiuseXHR.onreadystatechange = function () {
-            if (doiuseXHR.readyState === XMLHttpRequest.DONE) {
-              if (doiuseXHR.status === 200) {
-                var doiuseOutput = doiuseXHR.responseText;
-                alert(doiuseOutput);
-              }
-            }
-          };
-
-          if (styleSheetContent) {
-            doiuseXHR.send('{"css":' + JSON.stringify(styleSheetContent) + '}');
-          }
-        }
-      }
-    };
-
-    // Don't try to GET <style> stylesheets
-    styleSheetXHR.open('GET', styleSheet.href);
-    styleSheetXHR.send();
+    $http(styleSheet.href).get().then(postToDoiuse);
   }
 }
